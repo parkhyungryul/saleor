@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bb1eb652fb41f9b6bfadbefd6bb0dd505a0f23191aeff584c3cac95266bfec61"
+            "sha256": "07bc562ecf32f1d5d42c4442d2ff5d01e428aeb2970ddc939846e0f858bed96c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -283,6 +283,17 @@
             ],
             "index": "pypi",
             "version": "==0.2.1"
+        },
+        "django-graphql-social-auth": {
+            "extras": [
+                "jwt"
+            ],
+            "hashes": [
+                "sha256:6c774184601555ab4166669d7728ca6804c9cbdcc1c910e08f269ae93bf4dc48",
+                "sha256:a2441043b5e5b3560d9b800cac0dbb39e3893208f5a79bebf8b56a4ca1f12307"
+            ],
+            "index": "pypi",
+            "version": "==0.1.4"
         },
         "django-impersonate": {
             "hashes": [

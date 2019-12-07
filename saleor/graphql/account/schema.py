@@ -1,5 +1,6 @@
 import graphene
 from graphql_jwt.decorators import login_required
+import graphql_social_auth
 
 from ..core.fields import FilterInputConnectionField
 from ..core.types import FilterInputObjectType
@@ -237,3 +238,6 @@ class AccountMutations(graphene.ObjectType):
 
     # Staff deprecated mutation
     password_reset = PasswordReset.Field()
+
+    # Kakao login
+    social_auth = graphql_social_auth.SocialAuthJWT.Field()

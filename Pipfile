@@ -136,6 +136,7 @@ Jinja2 = "==2.10.3"
 Markdown = "==3.1.1"
 MarkupSafe = "==1.1.1"
 WeasyPrint = "==50"
+django-graphql-social-auth = {extras = ["jwt"],version = "*"}
 
 [requires]
 python_version = "3.7"
