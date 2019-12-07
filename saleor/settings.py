@@ -549,6 +549,7 @@ AUTHENTICATION_BACKENDS = [
     "saleor.account.backends.google.CustomGoogleOAuth2",
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
+    'social_core.backends.kakao.KakaoOAuth2',
 ]
 
 
@@ -652,3 +653,7 @@ PLUGINS = [
 # True to use DraftJS (JSON based), for the 2.0 dashboard
 # False to use the old editor from dashboard 1.0
 USE_JSON_CONTENT = get_bool_from_env("USE_JSON_CONTENT", False)
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+SOCIAL_AUTH_KAKAO_KEY = '0575767c1716299d86dcd490dca12a83'
+SOCIAL_AUTH_KAKAO_SECRET = ''
