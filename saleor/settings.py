@@ -1,6 +1,7 @@
 import ast
 import os.path
 import warnings
+import environ
 
 import dj_database_url
 import dj_email_url
@@ -10,6 +11,9 @@ from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from django_prices.utils.formatting import get_currency_fraction
 from sentry_sdk.integrations.django import DjangoIntegration
+
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
 
 
 def get_list(text):
@@ -26,7 +30,7 @@ def get_bool_from_env(name, default_value):
     return default_value
 
 
-DEBUG = get_bool_from_env("DEBUG", True)
+DEBUG = env("DEBUG")
 
 SITE_ID = 1
 
@@ -196,7 +200,7 @@ TEMPLATES = [
 ]
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY")
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -656,4 +660,4 @@ USE_JSON_CONTENT = get_bool_from_env("USE_JSON_CONTENT", False)
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_KAKAO_SECRET = ''
-SOCIAL_AUTH_KAKAO_KEY = os.environ.get("SOCIAL_AUTH_KAKAO_KEY")
+SOCIAL_AUTH_KAKAO_KEY = env("SOCIAL_AUTH_KAKAO_KEY")
