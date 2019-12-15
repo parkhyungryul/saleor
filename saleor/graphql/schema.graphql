@@ -189,8 +189,18 @@ type AssignNavigation {
 
 type Attribute implements Node {
   id: ID!
-  productTypes(before: String, after: String, first: Int, last: Int): ProductTypeCountableConnection!
-  productVariantTypes(before: String, after: String, first: Int, last: Int): ProductTypeCountableConnection!
+  productTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductTypeCountableConnection!
+  productVariantTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductTypeCountableConnection!
   privateMeta: [MetaStore]!
   meta: [MetaStore]!
   inputType: AttributeInputTypeEnum
@@ -507,10 +517,25 @@ type Category implements Node {
   level: Int!
   privateMeta: [MetaStore]!
   meta: [MetaStore]!
-  ancestors(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
-  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  ancestors(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryCountableConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   url: String
-  children(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
+  children(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryCountableConnection
   backgroundImage(size: Int): Image
   translation(languageCode: LanguageCodeEnum!): CategoryTranslation
 }
@@ -624,7 +649,10 @@ type Checkout implements Node {
   shippingAddress: Address
   shippingMethod: ShippingMethod
   note: String!
-  discountAmount: Money @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, use discount instead.")
+  discountAmount: Money
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, use discount instead."
+    )
   discount: Money
   discountName: String
   translatedDiscountName: String
@@ -845,7 +873,12 @@ type Collection implements Node {
   slug: String!
   privateMeta: [MetaStore]!
   meta: [MetaStore]!
-  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   backgroundImage(size: Int): Image
   translation(languageCode: LanguageCodeEnum!): CollectionTranslation
 }
@@ -1277,6 +1310,11 @@ type CreateToken {
   token: String
   errors: [Error]!
   user: User
+}
+
+type SocialAuthJWT {
+  token: String
+  social: Social
 }
 
 type CreditCard {
@@ -1915,7 +1953,10 @@ input MenuInput {
 type MenuItem implements Node {
   id: ID!
   name: String!
-  sortOrder: Int @deprecated(reason: "Will be dropped in 2.10 and is deprecated since 2.9: use the position in list instead and relative calculus to determine shift position.")
+  sortOrder: Int
+    @deprecated(
+      reason: "Will be dropped in 2.10 and is deprecated since 2.9: use the position in list instead and relative calculus to determine shift position."
+    )
   menu: Menu!
   parent: MenuItem
   category: Category
@@ -2051,7 +2092,10 @@ type MetaStore {
 type Money {
   currency: String!
   amount: Float!
-  localized: String! @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.11. Price formatting according to the current locale should be handled by the frontend client.")
+  localized: String!
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.11. Price formatting according to the current locale should be handled by the frontend client."
+    )
 }
 
 type MoneyRange {
@@ -2068,22 +2112,37 @@ type Mutation {
   webhookCreate(input: WebhookCreateInput!): WebhookCreate
   webhookDelete(id: ID!): WebhookDelete
   webhookUpdate(id: ID!, input: WebhookUpdateInput!): WebhookUpdate
-  authorizationKeyAdd(input: AuthorizationKeyInput!, keyType: AuthorizationKeyType!): AuthorizationKeyAdd
+  authorizationKeyAdd(
+    input: AuthorizationKeyInput!
+    keyType: AuthorizationKeyType!
+  ): AuthorizationKeyAdd
   authorizationKeyDelete(keyType: AuthorizationKeyType!): AuthorizationKeyDelete
-  staffNotificationRecipientCreate(input: StaffNotificationRecipientInput!): StaffNotificationRecipientCreate
-  staffNotificationRecipientUpdate(id: ID!, input: StaffNotificationRecipientInput!): StaffNotificationRecipientUpdate
+  staffNotificationRecipientCreate(
+    input: StaffNotificationRecipientInput!
+  ): StaffNotificationRecipientCreate
+  staffNotificationRecipientUpdate(
+    id: ID!
+    input: StaffNotificationRecipientInput!
+  ): StaffNotificationRecipientUpdate
   staffNotificationRecipientDelete(id: ID!): StaffNotificationRecipientDelete
   homepageCollectionUpdate(collection: ID): HomepageCollectionUpdate
   shopDomainUpdate(input: SiteDomainInput): ShopDomainUpdate
   shopSettingsUpdate(input: ShopSettingsInput!): ShopSettingsUpdate
   shopFetchTaxRates: ShopFetchTaxRates
-  shopSettingsTranslate(input: ShopSettingsTranslationInput!, languageCode: LanguageCodeEnum!): ShopSettingsTranslate
+  shopSettingsTranslate(
+    input: ShopSettingsTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): ShopSettingsTranslate
   shopAddressUpdate(input: AddressInput): ShopAddressUpdate
   shippingPriceCreate(input: ShippingPriceInput!): ShippingPriceCreate
   shippingPriceDelete(id: ID!): ShippingPriceDelete
   shippingPriceBulkDelete(ids: [ID]!): ShippingPriceBulkDelete
   shippingPriceUpdate(id: ID!, input: ShippingPriceInput!): ShippingPriceUpdate
-  shippingPriceTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): ShippingPriceTranslate
+  shippingPriceTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): ShippingPriceTranslate
   shippingZoneCreate(input: ShippingZoneInput!): ShippingZoneCreate
   shippingZoneDelete(id: ID!): ShippingZoneDelete
   shippingZoneBulkDelete(ids: [ID]!): ShippingZoneBulkDelete
@@ -2091,80 +2150,191 @@ type Mutation {
   attributeCreate(input: AttributeCreateInput!): AttributeCreate
   attributeDelete(id: ID!): AttributeDelete
   attributeBulkDelete(ids: [ID]!): AttributeBulkDelete
-  attributeAssign(operations: [AttributeAssignInput]!, productTypeId: ID!): AttributeAssign
+  attributeAssign(
+    operations: [AttributeAssignInput]!
+    productTypeId: ID!
+  ): AttributeAssign
   attributeUnassign(attributeIds: [ID]!, productTypeId: ID!): AttributeUnassign
   attributeUpdate(id: ID!, input: AttributeUpdateInput!): AttributeUpdate
-  attributeTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): AttributeTranslate
+  attributeTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): AttributeTranslate
   attributeUpdateMetadata(id: ID!, input: MetaInput!): AttributeUpdateMeta
   attributeClearMetadata(id: ID!, input: MetaPath!): AttributeClearMeta
-  attributeUpdatePrivateMetadata(id: ID!, input: MetaInput!): AttributeUpdatePrivateMeta
-  attributeClearPrivateMetadata(id: ID!, input: MetaPath!): AttributeClearPrivateMeta
-  attributeValueCreate(attribute: ID!, input: AttributeValueCreateInput!): AttributeValueCreate
+  attributeUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): AttributeUpdatePrivateMeta
+  attributeClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): AttributeClearPrivateMeta
+  attributeValueCreate(
+    attribute: ID!
+    input: AttributeValueCreateInput!
+  ): AttributeValueCreate
   attributeValueDelete(id: ID!): AttributeValueDelete
   attributeValueBulkDelete(ids: [ID]!): AttributeValueBulkDelete
-  attributeValueUpdate(id: ID!, input: AttributeValueCreateInput!): AttributeValueUpdate
-  attributeValueTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): AttributeValueTranslate
-  attributeReorderValues(attributeId: ID!, moves: [ReorderInput]!): AttributeReorderValues
+  attributeValueUpdate(
+    id: ID!
+    input: AttributeValueCreateInput!
+  ): AttributeValueUpdate
+  attributeValueTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): AttributeValueTranslate
+  attributeReorderValues(
+    attributeId: ID!
+    moves: [ReorderInput]!
+  ): AttributeReorderValues
   categoryCreate(input: CategoryInput!, parent: ID): CategoryCreate
   categoryDelete(id: ID!): CategoryDelete
   categoryBulkDelete(ids: [ID]!): CategoryBulkDelete
   categoryUpdate(id: ID!, input: CategoryInput!): CategoryUpdate
-  categoryTranslate(id: ID!, input: TranslationInput!, languageCode: LanguageCodeEnum!): CategoryTranslate
+  categoryTranslate(
+    id: ID!
+    input: TranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): CategoryTranslate
   categoryUpdateMetadata(id: ID!, input: MetaInput!): CategoryUpdateMeta
   categoryClearMetadata(id: ID!, input: MetaPath!): CategoryClearMeta
-  categoryUpdatePrivateMetadata(id: ID!, input: MetaInput!): CategoryUpdatePrivateMeta
-  categoryClearPrivateMetadata(id: ID!, input: MetaPath!): CategoryClearPrivateMeta
-  collectionAddProducts(collectionId: ID!, products: [ID]!): CollectionAddProducts
+  categoryUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): CategoryUpdatePrivateMeta
+  categoryClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): CategoryClearPrivateMeta
+  collectionAddProducts(
+    collectionId: ID!
+    products: [ID]!
+  ): CollectionAddProducts
   collectionCreate(input: CollectionCreateInput!): CollectionCreate
   collectionDelete(id: ID!): CollectionDelete
-  collectionReorderProducts(collectionId: ID!, moves: [MoveProductInput]!): CollectionReorderProducts
+  collectionReorderProducts(
+    collectionId: ID!
+    moves: [MoveProductInput]!
+  ): CollectionReorderProducts
   collectionBulkDelete(ids: [ID]!): CollectionBulkDelete
-  collectionBulkPublish(ids: [ID]!, isPublished: Boolean!): CollectionBulkPublish
-  collectionRemoveProducts(collectionId: ID!, products: [ID]!): CollectionRemoveProducts
+  collectionBulkPublish(
+    ids: [ID]!
+    isPublished: Boolean!
+  ): CollectionBulkPublish
+  collectionRemoveProducts(
+    collectionId: ID!
+    products: [ID]!
+  ): CollectionRemoveProducts
   collectionUpdate(id: ID!, input: CollectionInput!): CollectionUpdate
-  collectionTranslate(id: ID!, input: TranslationInput!, languageCode: LanguageCodeEnum!): CollectionTranslate
+  collectionTranslate(
+    id: ID!
+    input: TranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): CollectionTranslate
   collectionUpdateMetadata(id: ID!, input: MetaInput!): CollectionUpdateMeta
   collectionClearMetadata(id: ID!, input: MetaPath!): CollectionClearMeta
-  collectionUpdatePrivateMetadata(id: ID!, input: MetaInput!): CollectionUpdatePrivateMeta
-  collectionClearPrivateMetadata(id: ID!, input: MetaPath!): CollectionClearPrivateMeta
+  collectionUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): CollectionUpdatePrivateMeta
+  collectionClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): CollectionClearPrivateMeta
   productCreate(input: ProductCreateInput!): ProductCreate
   productDelete(id: ID!): ProductDelete
   productBulkDelete(ids: [ID]!): ProductBulkDelete
   productBulkPublish(ids: [ID]!, isPublished: Boolean!): ProductBulkPublish
   productUpdate(id: ID!, input: ProductInput!): ProductUpdate
-  productTranslate(id: ID!, input: TranslationInput!, languageCode: LanguageCodeEnum!): ProductTranslate
+  productTranslate(
+    id: ID!
+    input: TranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): ProductTranslate
   productUpdateMetadata(id: ID!, input: MetaInput!): ProductUpdateMeta
   productClearMetadata(id: ID!, input: MetaPath!): ProductClearMeta
-  productUpdatePrivateMetadata(id: ID!, input: MetaInput!): ProductUpdatePrivateMeta
-  productClearPrivateMetadata(id: ID!, input: MetaPath!): ProductClearPrivateMeta
+  productUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): ProductUpdatePrivateMeta
+  productClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): ProductClearPrivateMeta
   productImageCreate(input: ProductImageCreateInput!): ProductImageCreate
   productImageDelete(id: ID!): ProductImageDelete
   productImageBulkDelete(ids: [ID]!): ProductImageBulkDelete
   productImageReorder(imagesIds: [ID]!, productId: ID!): ProductImageReorder
-  productImageUpdate(id: ID!, input: ProductImageUpdateInput!): ProductImageUpdate
+  productImageUpdate(
+    id: ID!
+    input: ProductImageUpdateInput!
+  ): ProductImageUpdate
   productTypeCreate(input: ProductTypeInput!): ProductTypeCreate
   productTypeDelete(id: ID!): ProductTypeDelete
   productTypeBulkDelete(ids: [ID]!): ProductTypeBulkDelete
   productTypeUpdate(id: ID!, input: ProductTypeInput!): ProductTypeUpdate
-  productTypeReorderAttributes(moves: [ReorderInput]!, productTypeId: ID!, type: AttributeTypeEnum!): ProductTypeReorderAttributes
+  productTypeReorderAttributes(
+    moves: [ReorderInput]!
+    productTypeId: ID!
+    type: AttributeTypeEnum!
+  ): ProductTypeReorderAttributes
   productTypeUpdateMetadata(id: ID!, input: MetaInput!): ProductTypeUpdateMeta
   productTypeClearMetadata(id: ID!, input: MetaPath!): ProductTypeClearMeta
-  productTypeUpdatePrivateMetadata(id: ID!, input: MetaInput!): ProductTypeUpdatePrivateMeta
-  productTypeClearPrivateMetadata(id: ID!, input: MetaPath!): ProductTypeClearPrivateMeta
-  digitalContentCreate(input: DigitalContentUploadInput!, variantId: ID!): DigitalContentCreate
+  productTypeUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): ProductTypeUpdatePrivateMeta
+  productTypeClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): ProductTypeClearPrivateMeta
+  digitalContentCreate(
+    input: DigitalContentUploadInput!
+    variantId: ID!
+  ): DigitalContentCreate
   digitalContentDelete(variantId: ID!): DigitalContentDelete
-  digitalContentUpdate(input: DigitalContentInput!, variantId: ID!): DigitalContentUpdate
-  digitalContentUrlCreate(input: DigitalContentUrlCreateInput!): DigitalContentUrlCreate
+  digitalContentUpdate(
+    input: DigitalContentInput!
+    variantId: ID!
+  ): DigitalContentUpdate
+  digitalContentUrlCreate(
+    input: DigitalContentUrlCreateInput!
+  ): DigitalContentUrlCreate
   productVariantCreate(input: ProductVariantCreateInput!): ProductVariantCreate
   productVariantDelete(id: ID!): ProductVariantDelete
-  productVariantBulkCreate(product: ID!, variants: [ProductVariantBulkCreateInput]!): ProductVariantBulkCreate
+  productVariantBulkCreate(
+    product: ID!
+    variants: [ProductVariantBulkCreateInput]!
+  ): ProductVariantBulkCreate
   productVariantBulkDelete(ids: [ID]!): ProductVariantBulkDelete
-  productVariantUpdate(id: ID!, input: ProductVariantInput!): ProductVariantUpdate
-  productVariantTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): ProductVariantTranslate
-  productVariantUpdateMetadata(id: ID!, input: MetaInput!): ProductVariantUpdateMeta
-  productVariantClearMetadata(id: ID!, input: MetaPath!): ProductVariantClearMeta
-  productVariantUpdatePrivateMetadata(id: ID!, input: MetaInput!): ProductVariantUpdatePrivateMeta
-  productVariantClearPrivateMetadata(id: ID!, input: MetaPath!): ProductVariantClearPrivateMeta
+  productVariantUpdate(
+    id: ID!
+    input: ProductVariantInput!
+  ): ProductVariantUpdate
+  productVariantTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): ProductVariantTranslate
+  productVariantUpdateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): ProductVariantUpdateMeta
+  productVariantClearMetadata(
+    id: ID!
+    input: MetaPath!
+  ): ProductVariantClearMeta
+  productVariantUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): ProductVariantUpdatePrivateMeta
+  productVariantClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): ProductVariantClearPrivateMeta
   variantImageAssign(imageId: ID!, variantId: ID!): VariantImageAssign
   variantImageUnassign(imageId: ID!, variantId: ID!): VariantImageUnassign
   paymentCapture(amount: Decimal, paymentId: ID!): PaymentCapture
@@ -2176,13 +2346,20 @@ type Mutation {
   pageBulkDelete(ids: [ID]!): PageBulkDelete
   pageBulkPublish(ids: [ID]!, isPublished: Boolean!): PageBulkPublish
   pageUpdate(id: ID!, input: PageInput!): PageUpdate
-  pageTranslate(id: ID!, input: PageTranslationInput!, languageCode: LanguageCodeEnum!): PageTranslate
+  pageTranslate(
+    id: ID!
+    input: PageTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): PageTranslate
   draftOrderComplete(id: ID!): DraftOrderComplete
   draftOrderCreate(input: DraftOrderCreateInput!): DraftOrderCreate
   draftOrderDelete(id: ID!): DraftOrderDelete
   draftOrderBulkDelete(ids: [ID]!): DraftOrderBulkDelete
   draftOrderLinesBulkDelete(ids: [ID]!): DraftOrderLinesBulkDelete
-  draftOrderLinesCreate(id: ID!, input: [OrderLineCreateInput]!): DraftOrderLinesCreate
+  draftOrderLinesCreate(
+    id: ID!
+    input: [OrderLineCreateInput]!
+  ): DraftOrderLinesCreate
   draftOrderLineDelete(id: ID!): DraftOrderLineDelete
   draftOrderLineUpdate(id: ID!, input: OrderLineInput!): DraftOrderLineUpdate
   draftOrderUpdate(id: ID!, input: DraftOrderInput!): DraftOrderUpdate
@@ -2191,19 +2368,37 @@ type Mutation {
   orderCapture(amount: Decimal!, id: ID!): OrderCapture
   orderClearPrivateMeta(id: ID!, input: MetaPath!): OrderClearPrivateMeta
   orderClearMeta(input: MetaPath!, token: UUID!): OrderClearMeta
-  orderFulfillmentCancel(id: ID!, input: FulfillmentCancelInput!): FulfillmentCancel
-  orderFulfillmentCreate(input: FulfillmentCreateInput!, order: ID): FulfillmentCreate
-  orderFulfillmentUpdateTracking(id: ID!, input: FulfillmentUpdateTrackingInput!): FulfillmentUpdateTracking
+  orderFulfillmentCancel(
+    id: ID!
+    input: FulfillmentCancelInput!
+  ): FulfillmentCancel
+  orderFulfillmentCreate(
+    input: FulfillmentCreateInput!
+    order: ID
+  ): FulfillmentCreate
+  orderFulfillmentUpdateTracking(
+    id: ID!
+    input: FulfillmentUpdateTrackingInput!
+  ): FulfillmentUpdateTracking
   orderFulfillmentClearMeta(id: ID!, input: MetaPath!): FulfillmentClearMeta
-  orderFulfillmentClearPrivateMeta(id: ID!, input: MetaPath!): FulfillmentClearPrivateMeta
+  orderFulfillmentClearPrivateMeta(
+    id: ID!
+    input: MetaPath!
+  ): FulfillmentClearPrivateMeta
   orderFulfillmentUpdateMeta(id: ID!, input: MetaInput!): FulfillmentUpdateMeta
-  orderFulfillmentUpdatePrivateMeta(id: ID!, input: MetaInput!): FulfillmentUpdatePrivateMeta
+  orderFulfillmentUpdatePrivateMeta(
+    id: ID!
+    input: MetaInput!
+  ): FulfillmentUpdatePrivateMeta
   orderMarkAsPaid(id: ID!): OrderMarkAsPaid
   orderRefund(amount: Decimal!, id: ID!): OrderRefund
   orderUpdate(id: ID!, input: OrderUpdateInput!): OrderUpdate
   orderUpdateMeta(input: MetaInput!, token: UUID!): OrderUpdateMeta
   orderUpdatePrivateMeta(id: ID!, input: MetaInput!): OrderUpdatePrivateMeta
-  orderUpdateShipping(order: ID!, input: OrderUpdateShippingInput): OrderUpdateShipping
+  orderUpdateShipping(
+    order: ID!
+    input: OrderUpdateShippingInput
+  ): OrderUpdateShipping
   orderVoid(id: ID!): OrderVoid
   orderBulkCancel(ids: [ID]!, restock: Boolean!): OrderBulkCancel
   assignNavigation(menu: ID, navigationType: NavigationType!): AssignNavigation
@@ -2215,7 +2410,11 @@ type Mutation {
   menuItemDelete(id: ID!): MenuItemDelete
   menuItemBulkDelete(ids: [ID]!): MenuItemBulkDelete
   menuItemUpdate(id: ID!, input: MenuItemInput!): MenuItemUpdate
-  menuItemTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): MenuItemTranslate
+  menuItemTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): MenuItemTranslate
   menuItemMove(menu: ID!, moves: [MenuItemMoveInput]!): MenuItemMove
   giftCardActivate(id: ID!): GiftCardActivate
   giftCardCreate(input: GiftCardCreateInput!): GiftCardCreate
@@ -2228,58 +2427,129 @@ type Mutation {
   saleUpdate(id: ID!, input: SaleInput!): SaleUpdate
   saleCataloguesAdd(id: ID!, input: CatalogueInput!): SaleAddCatalogues
   saleCataloguesRemove(id: ID!, input: CatalogueInput!): SaleRemoveCatalogues
-  saleTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): SaleTranslate
+  saleTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): SaleTranslate
   voucherCreate(input: VoucherInput!): VoucherCreate
   voucherDelete(id: ID!): VoucherDelete
   voucherBulkDelete(ids: [ID]!): VoucherBulkDelete
   voucherUpdate(id: ID!, input: VoucherInput!): VoucherUpdate
   voucherCataloguesAdd(id: ID!, input: CatalogueInput!): VoucherAddCatalogues
-  voucherCataloguesRemove(id: ID!, input: CatalogueInput!): VoucherRemoveCatalogues
-  voucherTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): VoucherTranslate
+  voucherCataloguesRemove(
+    id: ID!
+    input: CatalogueInput!
+  ): VoucherRemoveCatalogues
+  voucherTranslate(
+    id: ID!
+    input: NameTranslationInput!
+    languageCode: LanguageCodeEnum!
+  ): VoucherTranslate
   tokenCreate(email: String!, password: String!): CreateToken
   tokenRefresh(token: String!): Refresh
   tokenVerify(token: String!): VerifyToken
   socialAuth(accessToken: String!, provider: String!): SocialAuthJWT
-  checkoutAddPromoCode(checkoutId: ID!, promoCode: String!): CheckoutAddPromoCode
-  checkoutBillingAddressUpdate(billingAddress: AddressInput!, checkoutId: ID!): CheckoutBillingAddressUpdate
-  checkoutComplete(checkoutId: ID!, storeSource: Boolean = false): CheckoutComplete
+  checkoutAddPromoCode(
+    checkoutId: ID!
+    promoCode: String!
+  ): CheckoutAddPromoCode
+  checkoutBillingAddressUpdate(
+    billingAddress: AddressInput!
+    checkoutId: ID!
+  ): CheckoutBillingAddressUpdate
+  checkoutComplete(
+    checkoutId: ID!
+    storeSource: Boolean = false
+  ): CheckoutComplete
   checkoutCreate(input: CheckoutCreateInput!): CheckoutCreate
-  checkoutCustomerAttach(checkoutId: ID!, customerId: ID!): CheckoutCustomerAttach
+  checkoutCustomerAttach(
+    checkoutId: ID!
+    customerId: ID!
+  ): CheckoutCustomerAttach
   checkoutCustomerDetach(checkoutId: ID!): CheckoutCustomerDetach
   checkoutEmailUpdate(checkoutId: ID, email: String!): CheckoutEmailUpdate
   checkoutLineDelete(checkoutId: ID!, lineId: ID): CheckoutLineDelete
-  checkoutLinesAdd(checkoutId: ID!, lines: [CheckoutLineInput]!): CheckoutLinesAdd
-  checkoutLinesUpdate(checkoutId: ID!, lines: [CheckoutLineInput]!): CheckoutLinesUpdate
-  checkoutRemovePromoCode(checkoutId: ID!, promoCode: String!): CheckoutRemovePromoCode
-  checkoutPaymentCreate(checkoutId: ID!, input: PaymentInput!): CheckoutPaymentCreate
-  checkoutShippingAddressUpdate(checkoutId: ID!, shippingAddress: AddressInput!): CheckoutShippingAddressUpdate
-  checkoutShippingMethodUpdate(checkoutId: ID, shippingMethodId: ID!): CheckoutShippingMethodUpdate
-  checkoutUpdateVoucher(checkoutId: ID!, voucherCode: String): CheckoutUpdateVoucher
+  checkoutLinesAdd(
+    checkoutId: ID!
+    lines: [CheckoutLineInput]!
+  ): CheckoutLinesAdd
+  checkoutLinesUpdate(
+    checkoutId: ID!
+    lines: [CheckoutLineInput]!
+  ): CheckoutLinesUpdate
+  checkoutRemovePromoCode(
+    checkoutId: ID!
+    promoCode: String!
+  ): CheckoutRemovePromoCode
+  checkoutPaymentCreate(
+    checkoutId: ID!
+    input: PaymentInput!
+  ): CheckoutPaymentCreate
+  checkoutShippingAddressUpdate(
+    checkoutId: ID!
+    shippingAddress: AddressInput!
+  ): CheckoutShippingAddressUpdate
+  checkoutShippingMethodUpdate(
+    checkoutId: ID
+    shippingMethodId: ID!
+  ): CheckoutShippingMethodUpdate
+  checkoutUpdateVoucher(
+    checkoutId: ID!
+    voucherCode: String
+  ): CheckoutUpdateVoucher
   checkoutUpdateMetadata(id: ID!, input: MetaInput!): CheckoutUpdateMeta
   checkoutClearMetadata(id: ID!, input: MetaPath!): CheckoutClearMeta
-  checkoutUpdatePrivateMetadata(id: ID!, input: MetaInput!): CheckoutUpdatePrivateMeta
-  checkoutClearPrivateMetadata(id: ID!, input: MetaPath!): CheckoutClearPrivateMeta
-  requestPasswordReset(email: String!, redirectUrl: String!): RequestPasswordReset
+  checkoutUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): CheckoutUpdatePrivateMeta
+  checkoutClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): CheckoutClearPrivateMeta
+  requestPasswordReset(
+    email: String!
+    redirectUrl: String!
+  ): RequestPasswordReset
   setPassword(token: String!, email: String!, password: String!): SetPassword
   passwordChange(newPassword: String!, oldPassword: String!): PasswordChange
-  accountAddressCreate(input: AddressInput!, type: AddressTypeEnum): AccountAddressCreate
+  accountAddressCreate(
+    input: AddressInput!
+    type: AddressTypeEnum
+  ): AccountAddressCreate
   accountAddressUpdate(id: ID!, input: AddressInput!): AccountAddressUpdate
   accountAddressDelete(id: ID!): AccountAddressDelete
-  accountSetDefaultAddress(id: ID!, type: AddressTypeEnum!): AccountSetDefaultAddress
+  accountSetDefaultAddress(
+    id: ID!
+    type: AddressTypeEnum!
+  ): AccountSetDefaultAddress
   accountRegister(input: AccountRegisterInput!): AccountRegister
   accountUpdate(input: AccountInput!): AccountUpdate
   accountRequestDeletion(redirectUrl: String!): AccountRequestDeletion
   accountDelete(token: String!): AccountDelete
   accountUpdateMeta(input: MetaInput!): AccountUpdateMeta
-  customerPasswordReset(input: CustomerPasswordResetInput!): CustomerPasswordReset
-  customerAddressCreate(input: AddressInput!, type: AddressTypeEnum): CustomerAddressCreate
-  customerSetDefaultAddress(id: ID!, type: AddressTypeEnum!): CustomerSetDefaultAddress
+  customerPasswordReset(
+    input: CustomerPasswordResetInput!
+  ): CustomerPasswordReset
+  customerAddressCreate(
+    input: AddressInput!
+    type: AddressTypeEnum
+  ): CustomerAddressCreate
+  customerSetDefaultAddress(
+    id: ID!
+    type: AddressTypeEnum!
+  ): CustomerSetDefaultAddress
   customerRegister(input: CustomerRegisterInput!): CustomerRegister
   loggedUserUpdate(input: UserAddressInput!): LoggedUserUpdate
   addressCreate(input: AddressInput!, userId: ID!): AddressCreate
   addressUpdate(id: ID!, input: AddressInput!): AddressUpdate
   addressDelete(id: ID!): AddressDelete
-  addressSetDefault(addressId: ID!, type: AddressTypeEnum!, userId: ID!): AddressSetDefault
+  addressSetDefault(
+    addressId: ID!
+    type: AddressTypeEnum!
+    userId: ID!
+  ): AddressSetDefault
   customerCreate(input: UserCreateInput!): CustomerCreate
   customerUpdate(id: ID!, input: CustomerInput!): CustomerUpdate
   customerDelete(id: ID!): CustomerDelete
@@ -2296,11 +2566,22 @@ type Mutation {
   userUpdatePrivateMetadata(id: ID!, input: MetaInput!): UserUpdatePrivateMeta
   userClearPrivateMetadata(id: ID!, input: MetaPath!): UserClearPrivateMeta
   serviceAccountCreate(input: ServiceAccountInput!): ServiceAccountCreate
-  serviceAccountUpdate(id: ID!, input: ServiceAccountInput!): ServiceAccountUpdate
+  serviceAccountUpdate(
+    id: ID!
+    input: ServiceAccountInput!
+  ): ServiceAccountUpdate
   serviceAccountDelete(id: ID!): ServiceAccountDelete
-  serviceAccountUpdatePrivateMetadata(id: ID!, input: MetaInput!): ServiceAccountUpdatePrivateMeta
-  serviceAccountClearPrivateMetadata(id: ID!, input: MetaPath!): ServiceAccountClearPrivateMeta
-  serviceAccountTokenCreate(input: ServiceAccountTokenInput!): ServiceAccountTokenCreate
+  serviceAccountUpdatePrivateMetadata(
+    id: ID!
+    input: MetaInput!
+  ): ServiceAccountUpdatePrivateMeta
+  serviceAccountClearPrivateMetadata(
+    id: ID!
+    input: MetaPath!
+  ): ServiceAccountClearPrivateMeta
+  serviceAccountTokenCreate(
+    input: ServiceAccountTokenInput!
+  ): ServiceAccountTokenCreate
   serviceAccountTokenDelete(id: ID!): ServiceAccountTokenDelete
   passwordReset(email: String!): PasswordReset
 }
@@ -2365,7 +2646,10 @@ type Order implements Node {
   totalBalance: Money!
   userEmail: String
   isShippingRequired: Boolean!
-  discountAmount: Money! @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, use discount instead.")
+  discountAmount: Money!
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, use discount instead."
+    )
 }
 
 enum OrderAction {
@@ -2930,11 +3214,17 @@ type Product implements Node {
   meta: [MetaStore]!
   url: String!
   thumbnail(size: Int): Image
-  availability: ProductPricingInfo @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, Has been renamed to `pricing`.")
+  availability: ProductPricingInfo
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, Has been renamed to `pricing`."
+    )
   pricing: ProductPricingInfo
   isAvailable: Boolean
   basePrice: Money
-  price: Money @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, has been replaced by `basePrice`")
+  price: Money
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, has been replaced by `basePrice`"
+    )
   minimalVariantPrice: Money
   taxType: TaxType
   attributes: [SelectedAttribute!]!
@@ -3134,7 +3424,10 @@ enum ProductOrderField {
 }
 
 type ProductPricingInfo {
-  available: Boolean @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, this has been moved to the parent type as 'isAvailable'.")
+  available: Boolean
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, this has been moved to the parent type as 'isAvailable'."
+    )
   onSale: Boolean
   discount: TaxedMoney
   discountLocalCurrency: TaxedMoney
@@ -3178,12 +3471,23 @@ type ProductType implements Node {
   weight: Weight
   privateMeta: [MetaStore]!
   meta: [MetaStore]!
-  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   taxRate: TaxRateType
   taxType: TaxType
   variantAttributes: [Attribute]
   productAttributes: [Attribute]
-  availableAttributes(filter: AttributeFilterInput, before: String, after: String, first: Int, last: Int): AttributeCountableConnection
+  availableAttributes(
+    filter: AttributeFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): AttributeCountableConnection
 }
 
 type ProductTypeBulkDelete {
@@ -3309,8 +3613,14 @@ type ProductVariant implements Node {
   quantity: Int!
   stockQuantity: Int!
   priceOverride: Money
-  price: Money @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, has been replaced by 'pricing.priceUndiscounted'")
-  availability: VariantPricingInfo @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, has been renamed to `pricing`.")
+  price: Money
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, has been replaced by 'pricing.priceUndiscounted'"
+    )
+  availability: VariantPricingInfo
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, has been renamed to `pricing`."
+    )
   pricing: VariantPricingInfo
   isAvailable: Boolean
   attributes: [SelectedAttribute!]!
@@ -3440,62 +3750,251 @@ type ProductVariantUpdatePrivateMeta {
 
 type Query {
   webhook(id: ID!): Webhook
-  webhooks(filter: WebhookFilterInput, before: String, after: String, first: Int, last: Int): WebhookCountableConnection
+  webhooks(
+    filter: WebhookFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WebhookCountableConnection
   webhookEvents: [WebhookEvent]
   webhookSamplePayload(eventType: WebhookEventTypeEnum!): JSONString
-  translations(kind: TranslatableKinds!, before: String, after: String, first: Int, last: Int): TranslatableItemConnection
+  translations(
+    kind: TranslatableKinds!
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): TranslatableItemConnection
   translation(id: ID!, kind: TranslatableKinds!): TranslatableItem
   shop: Shop
   shippingZone(id: ID!): ShippingZone
-  shippingZones(before: String, after: String, first: Int, last: Int): ShippingZoneCountableConnection
+  shippingZones(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShippingZoneCountableConnection
   digitalContent(id: ID!): DigitalContent
-  digitalContents(before: String, after: String, first: Int, last: Int): DigitalContentCountableConnection
-  attributes(query: String, inCategory: ID, inCollection: ID, filter: AttributeFilterInput, sortBy: AttributeSortingInput, before: String, after: String, first: Int, last: Int): AttributeCountableConnection
+  digitalContents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): DigitalContentCountableConnection
+  attributes(
+    query: String
+    inCategory: ID
+    inCollection: ID
+    filter: AttributeFilterInput
+    sortBy: AttributeSortingInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): AttributeCountableConnection
   attribute(id: ID!): Attribute
-  categories(query: String, filter: CategoryFilterInput, level: Int, before: String, after: String, first: Int, last: Int): CategoryCountableConnection
+  categories(
+    query: String
+    filter: CategoryFilterInput
+    level: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryCountableConnection
   category(id: ID!): Category
   collection(id: ID!): Collection
-  collections(filter: CollectionFilterInput, query: String, before: String, after: String, first: Int, last: Int): CollectionCountableConnection
+  collections(
+    filter: CollectionFilterInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionCountableConnection
   product(id: ID!): Product
-  products(filter: ProductFilterInput, attributes: [AttributeScalar], categories: [ID], collections: [ID], sortBy: ProductOrder, stockAvailability: StockAvailability, query: String, before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  products(
+    filter: ProductFilterInput
+    attributes: [AttributeScalar]
+    categories: [ID]
+    collections: [ID]
+    sortBy: ProductOrder
+    stockAvailability: StockAvailability
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   productType(id: ID!): ProductType
-  productTypes(filter: ProductTypeFilterInput, query: String, before: String, after: String, first: Int, last: Int): ProductTypeCountableConnection
+  productTypes(
+    filter: ProductTypeFilterInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductTypeCountableConnection
   productVariant(id: ID!): ProductVariant
-  productVariants(ids: [ID], before: String, after: String, first: Int, last: Int): ProductVariantCountableConnection
-  reportProductSales(period: ReportingPeriod!, before: String, after: String, first: Int, last: Int): ProductVariantCountableConnection
+  productVariants(
+    ids: [ID]
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductVariantCountableConnection
+  reportProductSales(
+    period: ReportingPeriod!
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductVariantCountableConnection
   payment(id: ID!): Payment
-  payments(before: String, after: String, first: Int, last: Int): PaymentCountableConnection
-  paymentClientToken(gateway: String!): String @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, use payment gateway config instead in availablePaymentGateways.")
+  payments(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PaymentCountableConnection
+  paymentClientToken(gateway: String!): String
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, use payment gateway config instead in availablePaymentGateways."
+    )
   page(id: ID, slug: String): Page
-  pages(query: String, filter: PageFilterInput, before: String, after: String, first: Int, last: Int): PageCountableConnection
-  homepageEvents(before: String, after: String, first: Int, last: Int): OrderEventCountableConnection
+  pages(
+    query: String
+    filter: PageFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PageCountableConnection
+  homepageEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderEventCountableConnection
   order(id: ID!): Order
-  orders(filter: OrderFilterInput, query: String, created: ReportingPeriod, status: OrderStatusFilter, before: String, after: String, first: Int, last: Int): OrderCountableConnection
-  draftOrders(filter: OrderDraftFilterInput, query: String, created: ReportingPeriod, before: String, after: String, first: Int, last: Int): OrderCountableConnection
+  orders(
+    filter: OrderFilterInput
+    query: String
+    created: ReportingPeriod
+    status: OrderStatusFilter
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderCountableConnection
+  draftOrders(
+    filter: OrderDraftFilterInput
+    query: String
+    created: ReportingPeriod
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderCountableConnection
   ordersTotal(period: ReportingPeriod): TaxedMoney
   orderByToken(token: UUID!): Order
   menu(id: ID, name: String): Menu
-  menus(query: String, filter: MenuFilterInput, before: String, after: String, first: Int, last: Int): MenuCountableConnection
+  menus(
+    query: String
+    filter: MenuFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MenuCountableConnection
   menuItem(id: ID!): MenuItem
-  menuItems(query: String, filter: MenuItemFilterInput, before: String, after: String, first: Int, last: Int): MenuItemCountableConnection
+  menuItems(
+    query: String
+    filter: MenuItemFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MenuItemCountableConnection
   giftCard(id: ID!): GiftCard
-  giftCards(before: String, after: String, first: Int, last: Int): GiftCardCountableConnection
+  giftCards(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): GiftCardCountableConnection
   plugin(id: ID!): Plugin
-  plugins(filter: PluginFilterInput, before: String, after: String, first: Int, last: Int): PluginCountableConnection
+  plugins(
+    filter: PluginFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PluginCountableConnection
   sale(id: ID!): Sale
-  sales(filter: SaleFilterInput, query: String, before: String, after: String, first: Int, last: Int): SaleCountableConnection
+  sales(
+    filter: SaleFilterInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): SaleCountableConnection
   voucher(id: ID!): Voucher
-  vouchers(filter: VoucherFilterInput, query: String, before: String, after: String, first: Int, last: Int): VoucherCountableConnection
+  vouchers(
+    filter: VoucherFilterInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): VoucherCountableConnection
   taxTypes: [TaxType]
   checkout(token: UUID): Checkout
-  checkouts(before: String, after: String, first: Int, last: Int): CheckoutCountableConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutCountableConnection
   checkoutLine(id: ID): CheckoutLine
-  checkoutLines(before: String, after: String, first: Int, last: Int): CheckoutLineCountableConnection
-  addressValidationRules(countryCode: CountryCode!, countryArea: String, city: String, cityArea: String): AddressValidationData
-  customers(filter: CustomerFilterInput, query: String, before: String, after: String, first: Int, last: Int): UserCountableConnection
+  checkoutLines(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutLineCountableConnection
+  addressValidationRules(
+    countryCode: CountryCode!
+    countryArea: String
+    city: String
+    cityArea: String
+  ): AddressValidationData
+  customers(
+    filter: CustomerFilterInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): UserCountableConnection
   me: User
-  staffUsers(filter: StaffUserInput, query: String, before: String, after: String, first: Int, last: Int): UserCountableConnection
-  serviceAccounts(filter: ServiceAccountFilterInput, before: String, after: String, first: Int, last: Int): ServiceAccountCountableConnection
+  staffUsers(
+    filter: StaffUserInput
+    query: String
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): UserCountableConnection
+  serviceAccounts(
+    filter: ServiceAccountFilterInput
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ServiceAccountCountableConnection
   serviceAccount(id: ID!): ServiceAccount
   user(id: ID!): User
   _entities(representations: [_Any]): [_Entity]
@@ -3534,9 +4033,24 @@ type Sale implements Node {
   value: Float!
   startDate: DateTime!
   endDate: DateTime
-  categories(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
-  collections(before: String, after: String, first: Int, last: Int): CollectionCountableConnection
-  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  categories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryCountableConnection
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionCountableConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   translation(languageCode: LanguageCodeEnum!): SaleTranslation
 }
 
@@ -3624,7 +4138,10 @@ type SaleUpdate {
 
 type SelectedAttribute {
   attribute: Attribute!
-  value: AttributeValue @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, use values instead.")
+  value: AttributeValue
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, use values instead."
+    )
   values: [AttributeValue]!
 }
 
@@ -4145,7 +4662,18 @@ enum TransactionKind {
   CONFIRM
 }
 
-union TranslatableItem = ProductTranslatableContent | CollectionTranslatableContent | CategoryTranslatableContent | AttributeTranslatableContent | AttributeValueTranslatableContent | ProductVariantTranslatableContent | PageTranslatableContent | ShippingMethodTranslatableContent | SaleTranslatableContent | VoucherTranslatableContent | MenuItemTranslatableContent
+union TranslatableItem =
+    ProductTranslatableContent
+  | CollectionTranslatableContent
+  | CategoryTranslatableContent
+  | AttributeTranslatableContent
+  | AttributeValueTranslatableContent
+  | ProductVariantTranslatableContent
+  | PageTranslatableContent
+  | ShippingMethodTranslatableContent
+  | SaleTranslatableContent
+  | VoucherTranslatableContent
+  | MenuItemTranslatableContent
 
 type TranslatableItemConnection {
   pageInfo: PageInfo!
@@ -4200,8 +4728,18 @@ type User implements Node {
   meta: [MetaStore]!
   addresses: [Address]
   checkout: Checkout
-  giftCards(before: String, after: String, first: Int, last: Int): GiftCardCountableConnection
-  orders(before: String, after: String, first: Int, last: Int): OrderCountableConnection
+  giftCards(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): GiftCardCountableConnection
+  orders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderCountableConnection
   permissions: [PermissionDisplay]
   avatar(size: Int): Image
   events: [CustomerEvent]
@@ -4299,7 +4837,10 @@ type VariantImageUnassign {
 }
 
 type VariantPricingInfo {
-  available: Boolean @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, this has been moved to the parent type as 'isAvailable'.")
+  available: Boolean
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, this has been moved to the parent type as 'isAvailable'."
+    )
   onSale: Boolean
   discount: TaxedMoney
   discountLocalCurrency: TaxedMoney
@@ -4328,12 +4869,30 @@ type Voucher implements Node {
   discountValue: Float!
   minSpent: Money
   minCheckoutItemsQuantity: Int
-  categories(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
-  collections(before: String, after: String, first: Int, last: Int): CollectionCountableConnection
-  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  categories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryCountableConnection
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionCountableConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductCountableConnection
   countries: [CountryDisplay]
   translation(languageCode: LanguageCodeEnum!): VoucherTranslation
-  minAmountSpent: Money @deprecated(reason: "DEPRECATED: Will be removed in Saleor 2.10, use the minSpent field instead.")
+  minAmountSpent: Money
+    @deprecated(
+      reason: "DEPRECATED: Will be removed in Saleor 2.10, use the minSpent field instead."
+    )
 }
 
 type VoucherAddCatalogues {
@@ -4542,7 +5101,16 @@ enum WeightUnitsEnum {
 
 scalar _Any
 
-union _Entity = Address | ServiceAccount | User | ProductVariant | Product | ProductType | Collection | Category | ProductImage
+union _Entity =
+    Address
+  | ServiceAccount
+  | User
+  | ProductVariant
+  | Product
+  | ProductType
+  | Collection
+  | Category
+  | ProductImage
 
 type _Service {
   sdl: String
